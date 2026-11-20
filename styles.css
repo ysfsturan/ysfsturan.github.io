@@ -693,6 +693,15 @@ button { font: inherit; color: inherit; }
 .project-tags { margin-top: 16px; }
 .project-tags li { font-size: 11px; padding: 4px 8px; color: var(--nord4); }
 
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
 .project-link {
   display: inline-flex;
   align-items: center;
@@ -705,8 +714,14 @@ button { font: inherit; color: inherit; }
   transition: color .18s ease;
 }
 
+.project-links .project-link {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .project-link > span:nth-child(2) { color: var(--card-accent, var(--accent)); }
 .project-link:hover { color: var(--card-accent, var(--accent)); }
+.project-link-live { color: var(--card-accent, var(--accent)); }
 
 /* Experience */
 .experience-card {
