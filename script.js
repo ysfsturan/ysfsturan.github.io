@@ -11,6 +11,8 @@ const translations = {
     navEducation: "Eğitim",
     navContact: "İletişim",
     languageLabel: "Dil seçimi",
+    snowToggleLabel: "Kar efektini aç veya kapat",
+    snowLabel: "Kar",
     socialLabel: "Sosyal profiller",
     profileLabel: "Profil özeti",
     heroEyebrow: "Bilgisayar Programcılığı · 2. sınıf",
@@ -18,17 +20,24 @@ const translations = {
     heroDescription: "Bilgisayar sistemleri ve teknik destekten pratik yazılım projelerine uzanan bir öğrenme süreci. Deneyim kazanmaya ve adım adım kendimi geliştirmeye devam ediyorum.",
     heroProjects: "Projelerimi gör",
     heroContact: "İletişime geç",
-    profileCardLabel: "Kısa profil",
     profileRole: "Bilgisayar Programcılığı öğrencisi",
     profileLocationLabel: "Konum",
     profileLocation: "Kastamonu, Türkiye",
-    profileStudyLabel: "Eğitim",
+    profileStudyLabel: "Üniversite",
     profileStudy: "Kastamonu Üniversitesi",
+    profileInternLabel: "Staj",
+    profileIntern: "Temmuz – Ağustos 2026",
     profileFocusLabel: "Odak",
     profileFocus: "IT · Sistemler · Yazılım",
     aboutKicker: "Tanışalım",
     aboutTitle: "Hakkımda",
     aboutText: "Kastamonu Üniversitesi Bilgisayar Programcılığı 2. sınıf öğrencisiyim. Bilgi teknolojileri, bilgisayar sistemleri ve yazılım geliştirme alanlarına ilgi duyuyor, eğitimim ve kişisel projelerimle teknik bilgimi geliştirmeye devam ediyorum. C#, Python, SQL ve temel web teknolojilerini öğrenirken donanım, işletim sistemleri ve teknik destek tarafında stajla edindiğim saha deneyimini birleştirmeye çalışıyorum. Araştırmayı, yapay zekâ araçlarından da faydalanarak günlük hayatta işe yarayan küçük uygulamalar üretmeyi seviyorum.",
+    focusItTitle: "IT & Sistem Desteği",
+    focusItDesc: "Donanım bakımı, işletim sistemi kurulumu, yazıcı/kamera sistemleri ve son kullanıcı teknik desteği.",
+    focusBotTitle: "Otomasyon & Botlar",
+    focusBotDesc: "Python, Telegram Bot API ve GitHub Actions ile günlük işleri kolaylaştıran pratik araçlar.",
+    focusWebTitle: "Uygulama & Web",
+    focusWebDesc: "C#/.NET, SQL Server ve HTML/CSS/JavaScript ile masaüstü ve web tabanlı proje çalışmaları.",
     skillsKicker: "Teknik bilgi",
     skillsTitle: "Yetenekler",
     skillsIntro: "Eğitimim, projelerim ve staj deneyimimde kullandığım araçlar.",
@@ -41,7 +50,9 @@ const translations = {
     projectsKicker: "Seçili çalışmalar",
     projectsTitle: "Projeler",
     allProjects: "Tüm repolar",
-    statusActive: "Aktif",
+    catBot: "Telegram Botu",
+    catGame: "Web Oyunu",
+    catConsole: "Konsol Uygulaması",
     viewProject: "GitHub'da görüntüle",
     projectUbys: "Kastamonu Üniversitesi öğrencileri için ÜBYS not ve devamsızlık takibi, final hedefi hesaplama, ders programı, yemekhane menüsü ve akademik takvim bildirimleri gönderen Telegram botu.",
     projectHoroscope: "GitHub Actions üzerinden her gün çalışan, gökyüzü hesaplamaları ve Gemini API kullanarak günlük burç yorumları gönderen Telegram botu.",
@@ -87,6 +98,8 @@ const translations = {
     navEducation: "Education",
     navContact: "Contact",
     languageLabel: "Language selection",
+    snowToggleLabel: "Toggle snow effect",
+    snowLabel: "Snow",
     socialLabel: "Social profiles",
     profileLabel: "Profile summary",
     heroEyebrow: "Computer Programming · 2nd year",
@@ -94,17 +107,24 @@ const translations = {
     heroDescription: "A learning journey spanning computer systems, technical support, and practical software projects. I keep learning and building experience step by step.",
     heroProjects: "Explore my projects",
     heroContact: "Get in touch",
-    profileCardLabel: "Profile at a glance",
     profileRole: "Computer Programming student",
     profileLocationLabel: "Location",
     profileLocation: "Kastamonu, Türkiye",
-    profileStudyLabel: "Education",
+    profileStudyLabel: "University",
     profileStudy: "Kastamonu University",
+    profileInternLabel: "Internship",
+    profileIntern: "July – August 2026",
     profileFocusLabel: "Focus",
     profileFocus: "IT · Systems · Software",
     aboutKicker: "A little about me",
     aboutTitle: "About",
     aboutText: "I am a second-year Computer Programming student at Kastamonu University. I am interested in information technology, computer systems, and software development, and I continue improving step by step through coursework and personal projects. While learning C#, Python, SQL, and web fundamentals, I combine them with hands-on IT support experience from my internship and build practical bots and games with the help of AI tools.",
+    focusItTitle: "IT & System Support",
+    focusItDesc: "Hardware maintenance, OS deployment, printer/camera systems, and end-user technical support.",
+    focusBotTitle: "Automation & Bots",
+    focusBotDesc: "Practical everyday tools built with Python, Telegram Bot API, and GitHub Actions.",
+    focusWebTitle: "Apps & Web",
+    focusWebDesc: "Desktop and web-based practice projects with C#/.NET, SQL Server, and HTML/CSS/JavaScript.",
     skillsKicker: "Technical toolkit",
     skillsTitle: "Skills",
     skillsIntro: "Tools I have used in my studies, personal projects, and internship.",
@@ -117,7 +137,9 @@ const translations = {
     projectsKicker: "Selected work",
     projectsTitle: "Projects",
     allProjects: "All repositories",
-    statusActive: "Active",
+    catBot: "Telegram Bot",
+    catGame: "Web Game",
+    catConsole: "Console App",
     viewProject: "View on GitHub",
     projectUbys: "A Telegram bot for Kastamonu University students that tracks ÜBYS grades and attendance, calculates target finals, and shares schedules, dining menus, and academic dates.",
     projectHoroscope: "A daily Telegram horoscope bot running on GitHub Actions, combining astronomical calculations with Google Gemini API.",
@@ -175,9 +197,165 @@ function setLanguage(language) {
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   });
+  try {
+    localStorage.setItem("yst_lang", language);
+  } catch (_) {}
 }
 
 document.querySelectorAll(".language-button").forEach((button) => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
+
+try {
+  const savedLang = localStorage.getItem("yst_lang");
+  if (savedLang && translations[savedLang]) setLanguage(savedLang);
+} catch (_) {}
+
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Nord Snowfall Canvas Effect */
+(function initNordSnow() {
+  const canvas = document.getElementById("snow-canvas");
+  const toggleBtn = document.getElementById("snow-toggle");
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext("2d");
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let snowEnabled = !prefersReduced;
+  try {
+    const saved = localStorage.getItem("yst_snow");
+    if (saved === "0") snowEnabled = false;
+    else if (saved === "1") snowEnabled = true;
+  } catch (_) {}
+
+  const nordColors = ["236, 239, 244", "229, 233, 240", "136, 192, 208"];
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let flakes = [];
+  let animId = null;
+  let pointerDrift = 0;
+
+  function createFlake(randomY) {
+    const depth = Math.random(); // 0 = far, 1 = close
+    const radius = 0.8 + depth * 2.5;
+    return {
+      x: Math.random() * width,
+      y: randomY ? Math.random() * height : -10 - Math.random() * 40,
+      radius,
+      speedY: 0.35 + depth * 1.05,
+      windPhase: Math.random() * Math.PI * 2,
+      windSpeed: 0.008 + Math.random() * 0.015,
+      windAmp: 0.25 + depth * 0.55,
+      opacity: 0.18 + depth * 0.55,
+      color: depth > 0.72 ? nordColors[2] : nordColors[Math.floor(Math.random() * 2)],
+      hasGlow: radius > 2.4
+    };
+  }
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const targetCount = Math.min(95, Math.max(34, Math.floor(width / 16)));
+    while (flakes.length < targetCount) flakes.push(createFlake(true));
+    if (flakes.length > targetCount) flakes.length = targetCount;
+  }
+
+  function tick() {
+    if (!snowEnabled || document.hidden) {
+      animId = null;
+      return;
+    }
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < flakes.length; i += 1) {
+      const f = flakes[i];
+      f.windPhase += f.windSpeed;
+      f.y += f.speedY;
+      f.x += Math.sin(f.windPhase) * f.windAmp + pointerDrift * (0.2 + f.radius * 0.15);
+
+      if (f.y > height + 10) {
+        f.y = -8;
+        f.x = Math.random() * width;
+      }
+      if (f.x > width + 10) f.x = -8;
+      else if (f.x < -10) f.x = width + 8;
+
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${f.color}, ${f.opacity})`;
+      if (f.hasGlow) {
+        ctx.shadowColor = `rgba(136, 192, 208, 0.35)`;
+        ctx.shadowBlur = 6;
+      } else {
+        ctx.shadowBlur = 0;
+      }
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+    animId = requestAnimationFrame(tick);
+  }
+
+  function syncSnowState() {
+    canvas.classList.toggle("is-paused", !snowEnabled);
+    if (toggleBtn) {
+      toggleBtn.classList.toggle("is-active", snowEnabled);
+      toggleBtn.setAttribute("aria-pressed", String(snowEnabled));
+    }
+    if (snowEnabled && !document.hidden) {
+      if (animId === null) animId = requestAnimationFrame(tick);
+    } else {
+      if (animId !== null) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+      if (!snowEnabled) ctx.clearRect(0, 0, width, height);
+    }
+  }
+
+  window.addEventListener("resize", resize, { passive: true });
+  window.addEventListener("mousemove", (ev) => {
+    if (!width) return;
+    pointerDrift = ((ev.clientX / width) - 0.5) * 0.7;
+  }, { passive: true });
+  document.addEventListener("visibilitychange", syncSnowState);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      snowEnabled = !snowEnabled;
+      try {
+        localStorage.setItem("yst_snow", snowEnabled ? "1" : "0");
+      } catch (_) {}
+      syncSnowState();
+    });
+  }
+
+  resize();
+  syncSnowState();
+})();
+
+/* Subtle Scroll Reveal */
+(function initReveal() {
+  const items = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    items.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  items.forEach((el) => observer.observe(el));
+})();
